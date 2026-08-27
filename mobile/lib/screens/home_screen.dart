@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../blocs/app_bloc.dart';
 import '../l10n/app_localizations.dart';
+import '../widgets/connection_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -52,7 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.appTitle),
+        title: Row(
+          children: [
+            Text(l10n.appTitle),
+            const SizedBox(width: 16),
+            const ConnectionIndicator(),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

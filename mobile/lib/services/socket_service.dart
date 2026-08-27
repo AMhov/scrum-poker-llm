@@ -1,26 +1,47 @@
 import 'dart:async';
 
-import 'package:socket_io_client/socket_io_client.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService {
-  late Socket _socket;
+  late io.Socket _socket;
   final String baseUrl;
+  bool _connected = false;
+
+  bool get isConnected => _connected;
 
   SocketService(this.baseUrl);
 
   void connect(String roomId) {
-    _socket = io(baseUrl, <String, dynamic>{
+    _socket = io.io(baseUrl, <String, dynamic>{
       'transports': ['polling'],
       'autoConnect': true,
+      'reconnection': true,
+      'reconnectionAttempts': 10,
+      'reconnectionDelay': 2000,
+      'reconnectionDelayMax': 10000,
+      'timeout': 10000,
     });
 
     _socket.onConnect((_) {
+      _connected = true;
       print('Socket connected');
       _socket.emit('join_room', {'room_id': roomId});
     });
 
     _socket.onDisconnect((_) {
+      _connected = false;
       print('Socket disconnected');
+    });
+
+    _socket.onConnectError((data) {
+      _connected = false;
+      print('Socket connect error: $data');
+    });
+
+    _socket.onReconnect((_) {
+      _connected = true;
+      print('Socket reconnected');
+      _socket.emit('join_room', {'room_id': roomId});
     });
 
     _socket.on('room_created', (data) {
@@ -67,10 +88,13 @@ class SocketService {
   }
 
   void emit(String event, dynamic data) {
-    _socket.emit(event, data);
+    if (_connected) {
+      _socket.emit(event, data);
+    }
   }
 
   void disconnect() {
+    _connected = false;
     _socket.disconnect();
     _socket.dispose();
     for (final controller in _eventControllers.values) {

@@ -157,7 +157,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } catch (e) {
       // Сессия недействительна — очищаем
       await sessionService.clearSession();
-      emit(state.copyWith(status: AppStatus.initial, error: null));
+      emit(state.copyWith(
+        status: AppStatus.initial,
+        error: _formatError(e),
+      ));
     }
   }
 
@@ -192,7 +195,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         error: null,
       ));
     } catch (e) {
-      emit(state.copyWith(status: AppStatus.error, error: e.toString()));
+      emit(state.copyWith(status: AppStatus.error, error: _formatError(e)));
     }
   }
 
@@ -229,7 +232,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         error: null,
       ));
     } catch (e) {
-      emit(state.copyWith(status: AppStatus.error, error: e.toString()));
+      emit(state.copyWith(status: AppStatus.error, error: _formatError(e)));
     }
   }
 
@@ -266,7 +269,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         hostId: state.currentPlayer!.id,
       );
     } catch (e) {
-      emit(state.copyWith(status: AppStatus.error, error: e.toString()));
+      emit(state.copyWith(status: AppStatus.error, error: _formatError(e)));
     }
   }
 
@@ -281,7 +284,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       );
       emit(state.copyWith(myVoteValue: event.value, status: AppStatus.loaded));
     } catch (e) {
-      emit(state.copyWith(status: AppStatus.error, error: e.toString()));
+      emit(state.copyWith(status: AppStatus.error, error: _formatError(e)));
     }
   }
 
@@ -299,8 +302,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         error: null,
       ));
     } catch (e) {
-      emit(state.copyWith(status: AppStatus.error, error: e.toString()));
+      emit(state.copyWith(status: AppStatus.error, error: _formatError(e)));
     }
+  }
+
+  String _formatError(dynamic error) {
+    final message = error.toString();
+    if (message.contains('Network') || message.contains('timeout') || message.contains('Connection')) {
+      return 'Cannot connect to server. Check your Wi-Fi and backend URL.';
+    }
+    return message;
   }
 
   void _onRoomCreated(dynamic data) {

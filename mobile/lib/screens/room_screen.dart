@@ -7,6 +7,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/player_list.dart';
 import '../widgets/vote_cards.dart';
 import '../widgets/reveal_panel.dart';
+import '../widgets/connection_indicator.dart';
 
 class RoomScreen extends StatelessWidget {
   final String roomId;
@@ -21,7 +22,13 @@ class RoomScreen extends StatelessWidget {
         title: BlocBuilder<AppBloc, AppState>(
           builder: (context, state) {
             final roomName = state.room?.name ?? l10n.createRoom;
-            return Text(roomName);
+            return Row(
+              children: [
+                Text(roomName),
+                const SizedBox(width: 16),
+                const ConnectionIndicator(),
+              ],
+            );
           },
         ),
       ),

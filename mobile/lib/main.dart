@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +10,7 @@ import 'blocs/app_bloc.dart';
 import 'services/api_service.dart';
 import 'services/socket_service.dart';
 import 'services/session_service.dart';
+import 'services/connection_status.dart';
 import 'theme/app_theme.dart';
 import 'screens/home_screen.dart';
 import 'screens/room_screen.dart';
@@ -38,6 +41,10 @@ void main() async {
   final apiService = ApiService(baseUrl);
   final socketService = SocketService(baseUrl);
   final sessionService = SessionService();
+  final connectionStatus = ConnectionStatus(
+    apiService: apiService,
+    socketService: socketService,
+  );
   
   final router = GoRouter(
     initialLocation: '/',
@@ -86,6 +93,7 @@ void main() async {
         Provider<ApiService>.value(value: apiService),
         Provider<SocketService>.value(value: socketService),
         Provider<SessionService>.value(value: sessionService),
+        Provider<ConnectionStatus>.value(value: connectionStatus),
         BlocProvider(
           create: (_) => AppBloc(
             apiService: apiService,

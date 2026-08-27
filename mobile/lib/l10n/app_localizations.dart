@@ -62,6 +62,23 @@ class AppLocalizations {
       'loading': 'Загрузка...',
       'createError': 'Ошибка создания комнаты',
       'joinError': 'Ошибка вступления в комнату',
+      'invalidUrl': 'Неверный формат URL. Используйте http:// или https://',
+      'saveAndRestart': 'Сохранить и перезапустить',
+      'settingsSavedRestart': 'Настройки сохранены. Перезапустите приложение для применения.',
+      'restart': 'Перезапустить',
+      'restartApp': 'Перезапуск приложения',
+      'restartAppContent': 'Для применения новых настроек перезапустите приложение: закройте его и откройте снова.',
+      'ok': 'OK',
+      'howToFindIp': 'Как узнать IP-адрес?',
+      'ipStep1': '1. Linux (в терминале):',
+      'ipStep2': '2. Альтернативный способ (Linux):',
+      'ipStep3': '3. Windows:',
+      'ipStep3Content': 'Откройте командную строку и введите: ipconfig. Найдите IPv4-адрес адаптера Wi-Fi.',
+      'ipNote': 'Используйте IPv4-адрес (например, 192.168.1.100). Убедитесь, что телефон и компьютер в одной Wi-Fi сети.',
+      'urlHistory': 'История подключений',
+      'close': 'Закрыть',
+      'connected': 'Подключено',
+      'disconnected': 'Нет подключения',
     },
     'en': {
       'appTitle': 'Scrum Poker',
@@ -113,6 +130,23 @@ class AppLocalizations {
       'loading': 'Loading...',
       'createError': 'Error creating room',
       'joinError': 'Error joining room',
+      'invalidUrl': 'Invalid URL format. Use http:// or https://',
+      'saveAndRestart': 'Save & Restart',
+      'settingsSavedRestart': 'Settings saved. Restart the app to apply.',
+      'restart': 'Restart',
+      'restartApp': 'Restart App',
+      'restartAppContent': 'To apply new settings, restart the app: close it and open it again.',
+      'ok': 'OK',
+      'howToFindIp': 'How to find IP address?',
+      'ipStep1': '1. Linux (in terminal):',
+      'ipStep2': '2. Alternative (Linux):',
+      'ipStep3': '3. Windows:',
+      'ipStep3Content': 'Open Command Prompt and type: ipconfig. Find the IPv4 address of your Wi-Fi adapter.',
+      'ipNote': 'Use the IPv4 address (e.g., 192.168.1.100). Make sure the phone and computer are on the same Wi-Fi network.',
+      'urlHistory': 'Connection History',
+      'close': 'Close',
+      'connected': 'Connected',
+      'disconnected': 'Disconnected',
     },
   };
 
@@ -169,6 +203,23 @@ class AppLocalizations {
   String get loading => t('loading');
   String get createError => t('createError');
   String get joinError => t('joinError');
+  String get invalidUrl => t('invalidUrl');
+  String get saveAndRestart => t('saveAndRestart');
+  String get settingsSavedRestart => t('settingsSavedRestart');
+  String get restart => t('restart');
+  String get restartApp => t('restartApp');
+  String get restartAppContent => t('restartAppContent');
+  String get ok => t('ok');
+  String get howToFindIp => t('howToFindIp');
+  String get ipStep1 => t('ipStep1');
+  String get ipStep2 => t('ipStep2');
+  String get ipStep3 => t('ipStep3');
+  String get ipStep3Content => t('ipStep3Content');
+  String get ipNote => t('ipNote');
+  String get urlHistory => t('urlHistory');
+  String get close => t('close');
+  String get connected => t('connected');
+  String get disconnected => t('disconnected');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
